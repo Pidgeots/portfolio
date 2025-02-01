@@ -22,7 +22,8 @@ const Card = ({ title, description, imageSrc, link }) => {
       minHeight="350px"
       display="flex"
       flexDirection="column"
-      _hover={{ transform: "scale(1.02)", transition: "0.3s ease-in-out" }}
+      transition="0.3s ease-in-out"
+      _hover={{ transform: "scale(1.02)" }}
     >
       <Image src={imageSrc} alt={title} width="100%" />
 

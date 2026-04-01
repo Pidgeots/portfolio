@@ -10,7 +10,7 @@ import { useRef } from "react";
 
 function Alert() {
   const { isOpen, type, message, onClose } = useAlertContext();
-  const cancelRef = useRef();
+  const cancelRef = useRef<HTMLButtonElement>(null);
   const isSuccess = type === "success";
 
   return (
@@ -22,7 +22,7 @@ function Alert() {
       <AlertDialogOverlay>
         <AlertDialogContent
           py={4}
-          backgroundColor={isSuccess ? "#81C784" : "#FF8A65"}
+          backgroundColor={isSuccess ? "alert.success" : "alert.error"}
         >
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {isSuccess ? "All good!" : "Oops!"}

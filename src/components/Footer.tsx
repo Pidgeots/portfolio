@@ -1,9 +1,8 @@
-import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 
 const Footer = () => {
   return (
-    <Box backgroundColor="#18181b">
+    <Box backgroundColor="brand.headerBg">
       <footer>
         <Flex
           margin="0 auto"
@@ -14,7 +13,7 @@ const Footer = () => {
           maxWidth="1024px"
           height={16}
         >
-          <p>Marat • © 2025</p>
+          <p>Marat &bull; &copy; {new Date().getFullYear()}</p>
         </Flex>
       </footer>
     </Box>

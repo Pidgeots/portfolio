@@ -10,15 +10,21 @@ import {
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 
-const Card = ({ title, description, imageSrc, link }) => {
+interface CardProps {
+  title: string;
+  description: string;
+  imageSrc: string;
+  link: string;
+}
+
+const Card = ({ title, description, imageSrc, link }: CardProps) => {
   return (
     <Box
       borderRadius="lg"
       overflow="hidden"
       boxShadow="md"
-      bg="#F0FFF0"
+      bg="brand.card"
       minHeight="350px"
       display="flex"
       flexDirection="column"
@@ -44,6 +50,7 @@ const Card = ({ title, description, imageSrc, link }) => {
             color="gray.600"
             fontSize="sm"
             _hover={{ color: "blue.400" }}
+            aria-label={`See project: ${title}`}
           >
             See project{" "}
             <FontAwesomeIcon icon={faArrowRight} size="1x" color="gray" />

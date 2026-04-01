@@ -1,39 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import {
-  faGithub,
-  faLinkedin,
-  faTelegram,
-} from "@fortawesome/free-brands-svg-icons";
 import { Box, HStack, Flex } from "@chakra-ui/react";
-
-const socials = [
-  {
-    icon: faEnvelope,
-    url: "mailto: marat.rahin@gmail.com",
-  },
-  {
-    icon: faGithub,
-    url: "https://github.com/Pidgeots",
-  },
-  {
-    icon: faLinkedin,
-    url: "https://www.linkedin.com/in/marat-lakhin/",
-  },
-  {
-    icon: faTelegram,
-    url: "https://t.me/pidgeots",
-  },
-];
-
-function usePrevious(val) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = val;
-  }, [val]);
-  return ref.current;
-}
+import usePrevious from "../hooks/usePrevious";
+import { socials } from "../constants/content";
 
 const Header = () => {
   const [scrollY, setScrollY] = useState(window.scrollY);
@@ -54,16 +23,18 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollY, prevScrollY]);
 
-  const handleClick = (anchor) => () => {
-    const id = `${anchor}-section`;
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
+  const handleClick =
+    (anchor: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      const id = `${anchor}-section`;
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    };
 
   return (
     <Box
@@ -74,7 +45,7 @@ const Header = () => {
       zIndex={100}
       transform={hidden ? "translateY(-200px)" : "translateY(0)"}
       transition="transform 0.3s ease-in-out"
-      backgroundColor="#18181b"
+      backgroundColor="brand.headerBg"
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <Flex
@@ -85,7 +56,7 @@ const Header = () => {
           flexDir={["column-reverse", "row"]}
           gap={[4, 0]}
         >
-          <nav>
+          <nav aria-label="Social links">
             <HStack spacing={4}>
               {socials.map((social) => (
                 <a
@@ -93,16 +64,21 @@ const Header = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={social.label}
                 >
                   <FontAwesomeIcon icon={social.icon} size="2x" />
                 </a>
               ))}
             </HStack>
           </nav>
-          <nav>
+          <nav aria-label="Main navigation">
             <HStack spacing={8}>
-              <a onClick={handleClick("projects")}>Projects</a>
-              <a onClick={handleClick("contactme")}>Contact Me</a>
+              <a href="#projects-section" onClick={handleClick("projects")}>
+                Projects
+              </a>
+              <a href="#contactme-section" onClick={handleClick("contactme")}>
+                Contact Me
+              </a>
             </HStack>
           </nav>
         </Flex>
